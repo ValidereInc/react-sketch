@@ -10,6 +10,7 @@ import Line from './line';
 import Rectangle from './rectangle';
 import Circle from './circle';
 import Pan from './pan';
+import ZoomBox from './zoom-box';
 import Tool from './tools';
 
 const fabric = require('fabric').fabric;
@@ -49,6 +50,10 @@ class SketchField extends PureComponent {
     onChange: PropTypes.func,
     // Default initial value
     defaultValue: PropTypes.object,
+    // Sketch pan
+    pan: PropTypes.object,
+    // Sketch zoom
+    zoom: PropTypes.number,
     // Sketch width
     width: PropTypes.number,
     // Sketch height
@@ -84,6 +89,7 @@ class SketchField extends PureComponent {
     this._tools[Tool.Rectangle] = new Rectangle(fabricCanvas);
     this._tools[Tool.Circle] = new Circle(fabricCanvas);
     this._tools[Tool.Pan] = new Pan(fabricCanvas)
+    this._tools[Tool.ZoomBox] = new ZoomBox(fabricCanvas)
   };
 
   /**
@@ -568,6 +574,8 @@ class SketchField extends PureComponent {
       value,
       undoSteps,
       defaultValue,
+      pan,
+      zoom,
       backgroundColor
     } = this.props;
 
@@ -616,6 +624,15 @@ class SketchField extends PureComponent {
     // initialize canvas with controlled value if exists
     (value || defaultValue) && this.fromJSON(value || defaultValue);
 
+    if (pan) {
+      canvas.absolutePan({
+        x: pan.x,
+        y: pan.y
+      });
+
+      canvas.setZoom(zoom || 1);
+      canvas.renderAll();
+    }
   };
 
   componentWillUnmount = () => window.removeEventListener('resize', this._resize);
@@ -642,6 +659,17 @@ class SketchField extends PureComponent {
 
     if ((this.props.value !== prevProps.value) || (this.props.value && this.props.forceValue)) {
       this.fromJSON(this.props.value);
+    }
+
+    if ((this.props.pan !== prevProps.pan) || (this.props.zoom !== prevProps.zoom)) {
+      let canvas = this._fc;
+      canvas.absolutePan({
+        x: this.props.pan.x,
+        y: this.props.pan.y
+      });
+
+      canvas.setZoom(this.props.zoom || 1);
+      canvas.renderAll();
     }
   };
 
