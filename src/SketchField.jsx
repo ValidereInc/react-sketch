@@ -141,6 +141,22 @@ class SketchField extends PureComponent {
     });
   };
 
+  addLine = (coords, opts = {}) => {
+    let canvas = this._fc;
+
+    const defaults =  {
+      fill: this.props.fillColor,
+      stroke: this.props.lineColor,
+      strokeWidth: this.props.lineWidth,
+      selectable: false,
+      evented: false
+    };
+
+    const line = new fabric.Line(coords, Object.assign(defaults, opts));
+
+    canvas.add(line);
+  };
+
   /**
    * Action when an object is added to the canvas
    */
