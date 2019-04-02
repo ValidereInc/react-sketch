@@ -125,20 +125,40 @@ class SketchField extends PureComponent {
    */
   addImg = (dataUrl, options = {}) => {
     let canvas = this._fc;
-    fabric.Image.fromURL(dataUrl, (oImg) => {
-      let opts = {
-        left: Math.random() * (canvas.getWidth() - oImg.width * 0.5),
-        top: Math.random() * (canvas.getHeight() - oImg.height * 0.5),
-        scale: 0.5
-      };
-      Object.assign(opts, options);
-      oImg.scale(opts.scale);
-      oImg.set({
-        'left': opts.left,
-        'top': opts.top
+    return new Promise(resolve => {
+      fabric.Image.fromURL(dataUrl, (oImg) => {
+        let opts = {
+          left: Math.random() * (canvas.getWidth() - oImg.width * 0.5),
+          top: Math.random() * (canvas.getHeight() - oImg.height * 0.5),
+          scale: 0.5
+        };
+        Object.assign(opts, options);
+        oImg.scale(opts.scale);
+        oImg.set({
+          'left': opts.left,
+          'top': opts.top
+        });
+        canvas.add(oImg);
+
+        resolve(oImg);
       });
-      canvas.add(oImg);
     });
+  };
+
+  addLine = (coords, opts = {}) => {
+    let canvas = this._fc;
+
+    const defaults =  {
+      fill: this.props.fillColor,
+      stroke: this.props.lineColor,
+      strokeWidth: this.props.lineWidth,
+      selectable: false,
+      evented: false
+    };
+
+    const line = new fabric.Line(coords, Object.assign(defaults, opts));
+
+    canvas.add(line);
   };
 
   /**
