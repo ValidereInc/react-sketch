@@ -12,6 +12,7 @@ import Circle from './circle';
 import Pan from './pan';
 import ZoomBox from './zoom-box';
 import Tool from './tools';
+import ValueHelpers from './ValueHelpers';
 
 const fabric = require('fabric').fabric;
 
@@ -156,7 +157,7 @@ class SketchField extends PureComponent {
       evented: false
     };
 
-    const line = new fabric.Line(coords, Object.assign(defaults, opts));
+    const line = ValueHelpers.createLine(coords, Object.assign(defaults, opts));
 
     canvas.add(line);
   };
