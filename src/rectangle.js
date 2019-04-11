@@ -38,6 +38,16 @@ class Rectangle extends FabricCanvasTool {
       angle: 0
     });
     canvas.add(this.rect);
+    canvas.forEachObject((o) => {
+      o.selectable = o.evented = o.hasControls = false;
+      o.lockMovementX = true;
+      o.lockMovementY = true;
+      o.lockScalingX = true;
+      o.lockScalingY = true;
+      o.lockUniScaling = true;
+      o.lockRotation = true;
+      o.hasBorders = false;
+    });
   }
 
   doMouseMove(o) {
