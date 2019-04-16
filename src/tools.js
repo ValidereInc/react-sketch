@@ -6,4 +6,5 @@ export default {
   Select: 'select',
   Pan: 'pan',
   ZoomBox: 'zoom-box',
+  Nothing: 'nothing',
 }
