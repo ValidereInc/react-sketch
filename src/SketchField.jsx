@@ -164,6 +164,12 @@ class SketchField extends PureComponent {
     canvas.add(line);
   };
 
+  addRect = (opts = {}) => {
+    const canvas = this._fc;
+    const rect = new fabric.Rect(opts);
+    canvas.add(rect);
+  };
+
   /**
    * Action when an object is added to the canvas
    */
