@@ -6,7 +6,6 @@ const myLocalIP = require('my-local-ip');
 const WebpackDevServer = require('webpack-dev-server');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const NoEmitOnErrorsPlugin = require('webpack/lib/NoEmitOnErrorsPlugin');
 const HotModuleReplacementPlugin = require('webpack/lib/HotModuleReplacementPlugin');
@@ -77,8 +76,7 @@ const config = {
       'process.env': {
         'NODE_ENV': JSON.stringify('development')
       }
-    }),
-    new OpenBrowserPlugin({ url: 'http://localhost:' + port })
+    })
   ]
 };
 
