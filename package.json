@@ -31,7 +31,6 @@
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "precommit": "lint-staged",
-    "prepublish": "npm run test && npm run build",
     "prebuild": "rimraf dist",
     "start:debug": "weinre --boundHost `my-local-ip` ",
     "test": "jest --coverage"
