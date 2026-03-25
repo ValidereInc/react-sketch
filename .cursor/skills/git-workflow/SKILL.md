@@ -41,6 +41,19 @@ build(CHB-8410): address vulnerabilities
 
 For assignee use `--assignee <github-username>` (individual logins only).
 
+### Fork vs upstream (GitHub CLI)
+
+This repository is a **fork**: **`origin`** is **[ValidereInc/react-sketch](https://github.com/ValidereInc/react-sketch)**; **`upstream`** is the parent **[tbolis/react-sketch](https://github.com/tbolis/react-sketch)**.
+
+- **`gh pr create`** with no `--repo` targets the **parent repo by default** (opens a cross-fork PR into `tbolis/react-sketch`). Use that only when you **intentionally** contribute upstream.
+- For **internal Validere PRs** (branch → `master` on the fork), either:
+  - Pass the fork explicitly:  
+    `gh pr create --repo ValidereInc/react-sketch --base master --head <branch-name>`
+  - Or set the default once in this clone (then plain `gh pr create` uses the fork):  
+    `gh repo set-default ValidereInc/react-sketch`
+
+Push branches to **`origin`** before opening a PR on the fork.
+
 ## Git Preferences
 
 - **Never force-push.** If a commit needs correcting after push, create a new commit instead of amending + force-pushing.
